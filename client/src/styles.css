@@ -1,0 +1,13 @@
+/*Generales*/
+.active{
+    background-color:aquamarine;
+}
+
+/*Cabecera*/
+.navigation{
+    padding: 0px !important;
+}
+
+.navigation .navbar{
+    border-radius: 0% !important;
+}

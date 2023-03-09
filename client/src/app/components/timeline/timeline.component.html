@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-6">
+        <h1 class="h1-strong">{{title}}</h1>
+        <button class="btn btn-info m-3" (click)="refreshPublications($event)">Refrescar pulicaciones</button>
+
+        <div id="publications">
+            <div *ngFor="let publication of publications">
+
+                <div class="card p-3">
+                    <a [routerLink]="['/perfil', publication.user._id]">{{publication.user.name + " " + publication.user.surname}}</a>
+                    <span>{{(publication.created_at)}}</span>
+                    <h4>{{publication.text}}</h4>
+
+                    <button class="btn btn-danger m-2" (click)="deletePublication(publication._id)">Borrar</button>
+
+                    <button class="btn btn-warning m-2" (click)="showImage(publication._id)" *ngIf="idShowImage != publication._id">Img</button>
+                    <button class="btn btn-info m-2" (click)="hideImage()" *ngIf="idShowImage == publication._id">Img</button>
+
+                    <div class="user-image">
+                        <img [src]="url+'uploads/'+publication.imagePath" alt="" *ngIf="publication.imagePath && idShowImage == publication._id">
+                        <img [src]="'assets/user-default.png'" alt="" *ngIf="!publication.imagePath && idShowImage == publication._id">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="text-center mt-2" *ngIf="!noMore">
+            <button class="btn btn-success" (click)="viewMore()">
+                Ver más publicaciones
+            </button>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <app-sidebar (PubliEvent)="refreshPublications($event)"></app-sidebar>
+    </div>
+</div>

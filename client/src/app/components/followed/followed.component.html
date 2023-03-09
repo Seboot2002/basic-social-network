@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="col">
+
+        <h1 class="h1-strong">{{title + " de " + user.name}}</h1>
+        <div class="card mb-3" style="max-width: 540px;">
+
+            <div class="card-header">
+                Seguidores de {{user.name}}
+            </div>
+            
+        <div *ngFor="let follow of followed" class="item-user">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    
+                    <div class="col-md-4" *ngIf="follow.user.imagePath">
+                        <img [src]="url+'uploads/'+follow.user.imagePath" alt="">
+                    </div>
+                    <div class="col-md-4" *ngIf="!follow.user.imagePath">
+                        <img [src]="'assets/user-default.png'" alt="">
+                    </div>
+    
+                    <div class="col-md-8">
+                        <div class="card-body">
+                        <h5 class="card-title">{{follow.user.nick}}</h5>
+                        <p class="card-text"> <a [routerLink]="['/perfil', follow.user._id]">{{follow.user.name + ' ' + follow.user.surname}}</a> </p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div *ngIf="identity._id != follow.user._id" class="botones">
+                    <a class="btn btn-success" *ngIf="follows.indexOf(follow.user._id) < 0" (click)="followUser(follow.user._id)">Seguir</a>
+    
+                    <a class="btn btn-info" *ngIf="follows.indexOf(follow.user._id) >= 0" (mouseenter)="mouseEnter(follow.user._id)" (mouseleave)="mouseLeave()" [class.btn-danger]="follow.user._id == idMouseOver" (click)="unfollowUser(follow.user._id)">
+                        
+                        <span *ngIf="follow.user._id == idMouseOver; else following">
+                            Dejar de seguir
+                        </span>
+                        <ng-template #following>
+                            <span>Siguiendo</span>
+                        </ng-template>
+                    </a>
+                </div>
+    
+            </div>
+        </div>
+        </div>
+    
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" *ngIf="page > 1">
+                        <a class="page-link" [routerLink]="['/gente']" [queryParams]="{page: prevPage, limit: 4}">Anterior</a>
+                    </li>
+            
+                <li class="page-item" *ngIf="page != pagesTotal">
+                    <a class="page-link" [routerLink]="['/gente']" [queryParams]="{page: nextPage, limit: 4}">Siguiente</a>
+                </li>
+                </ul>
+            </nav>
+        </div>
+
+      <div class="col-4 offset-1">
+        <app-sidebar></app-sidebar>
+      </div>
+
+    </div>
+</div>

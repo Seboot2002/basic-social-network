@@ -1,0 +1,9 @@
+# archivo de Node
+node_modules
+
+# experimentacion
+api.rest
+.env
+
+# archivo de proyecto
+/public

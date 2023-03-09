@@ -1,0 +1,61 @@
+<div class="card text-center mt-5">
+    <!--Identidad-->
+    <h1>Hola, {{identity.name}}</h1>
+
+    <div class="image-user">
+        <img [src]="url+'uploads/'+identity.imagePath" alt="" *ngIf="identity.imagePath">
+        <img [src]="'assets/user-default.png'" alt="" *ngIf="!identity.imagePath">
+    </div>
+
+    <div class="nombre_apellido">
+        <a [routerLink]="['/perfil', identity._id]">{{identity.name+' '+identity.surname}}</a>
+        <p>{{identity.nick}}</p>
+    </div>
+
+    <div class="stats" *ngIf="stats">
+        <div class="data">
+            <a [routerLink]="['/siguiendo', identity._id]">
+                <span>Siguiendo: </span>
+                <span>{{stats.following_count}}</span>
+            </a>
+        </div>
+        <div class="data">
+            <a [routerLink]="['/seguidores', identity._id]">
+                <span>Seguidos: </span>
+                <span>{{stats.followed_count}}</span>
+            </a>
+        </div>
+        <div class="data">
+            <a href="">
+                <span>Publicaciones: </span>
+                <span>{{stats.publications_count}}</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+    <hr>
+
+    <!--Publicacion-->
+    <div id="publication" class="col-4">
+        <h3>Crear publicacion</h3>
+
+        <div class="alert alert-success" *ngIf="status=='success'">Publicacion enviada</div>
+
+        <div class="alert alert-danger" *ngIf="status=='error'">Publicacion enviada</div>
+
+        <form #newPubliForm="ngForm" (ngSubmit)="onSubmit(newPubliForm); sendPublication($event)" class="col-10">
+            <p>
+                <label for="text">¿Qué estás pensando hoy?</label>
+                <textarea name="text" #text="ngModel" [(ngModel)]="publication.text"></textarea>
+                <span *ngIf="text.invalid && text.touched">El texto es obligatorio</span>
+            </p>
+
+            <p>
+                <label for="image">Sube tu foto</label>
+                <input type="file" name="image" placeholder="Subir imagen" (change)="selectedImage($event)">
+            </p>
+
+            <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubliForm.valid">
+        </form>
+    </div>

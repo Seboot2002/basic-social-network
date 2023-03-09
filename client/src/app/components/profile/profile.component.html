@@ -1,0 +1,83 @@
+<div class="row">
+
+    <div class="col-6">
+        <h1>{{title}}</h1>
+
+        <div id="data-profile">
+            <div class="card text-center mt-5">
+
+                <span class="badge bg-secondary mx-2" *ngIf="following">Te sigue</span>
+
+                <div>
+                    <img [src]="url+'uploads/'+user.imagePath" alt="" *ngIf="user.imagePath">
+                    <img [src]="'assets/user-default.png'" alt="imagen" *ngIf="!user.imagePath">
+                </div>
+                
+                <div class="user-data">
+                    <div>{{user.name + " " + user.surname}}</div>
+                    <div>{{user.nick}}</div>
+                </div>
+
+                <div class="follow mt-3">
+
+                    <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">Seguir</button>
+
+                    <button class="btn btn-primary" *ngIf="following" (click)="unFollowUser(user._id)" (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()" [class.btn-danger]="idUserOver==user._id">
+
+                        <span *ngIf="idUserOver==user._id; else Siguiendo">Dejar de seguir</span>
+                        <ng-template #Siguiendo>
+                            Siguiendo
+                        </ng-template>
+                    </button>
+                </div>
+
+                <div class="stats" *ngIf="stats">
+                    <div class="data">
+                        <a [routerLink]="['/siguiendo', identity._id]">
+                            <span>Siguiendo: </span>
+                            <span>{{stats.following_count}}</span>
+                        </a>
+                    </div>
+                    <div class="data">
+                        <a [routerLink]="['/seguidores', identity._id]">
+                            <span>Seguidos: </span>
+                            <span>{{stats.followed_count}}</span>
+                        </a>
+                    </div>
+                    <div class="data">
+                        <a href="">
+                            <span>Publicaciones: </span>
+                            <span>{{stats.publications_count}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="publications">
+            <div *ngFor="let publication of publications">
+
+                <div class="card p-3">
+                    <div>{{publication.user.name + " " + publication.user.surname}}</div>
+                    <span>{{(publication.created_at)}}</span>
+                    <h4>{{publication.text}}</h4>
+                    <div class="user-image">
+                        <img [src]="url+'uploads/'+publication.imagePath" alt="" *ngIf="publication.imagePath">
+                        <img [src]="'assets/user-default.png'" alt="" *ngIf="!publication.imagePath">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="text-center mt-2" *ngIf="!noMore">
+            <button class="btn btn-success" (click)="viewMore()">
+                Ver más publicaciones
+            </button>
+        </div>
+    </div>
+
+    <div class="col-4">
+        <app-sidebar></app-sidebar>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="sidebar">
+
+            <div class="container-fluid h-100">
+                <div class="row h-100">
+                    <div class="col-2" id="green">
+                        <h4>Mensajes</h4>
+            
+                        <a [routerLink]="['enviar']">Enviar mensaje</a>
+                        <br/>
+                        <br/>
+                        <a [routerLink]="['recibidos']">Mensajes recibidos</a>
+                        <br/>
+                        <br/>
+                        <a [routerLink]="['enviados']">Mensajes enviados</a>
+                        <br/>
+                        <br/>
+                        <a [routerLink]="['/home']">Informacion</a>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <router-outlet></router-outlet>
+    </div>
+</div>

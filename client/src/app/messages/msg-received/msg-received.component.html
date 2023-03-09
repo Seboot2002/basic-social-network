@@ -1,0 +1,41 @@
+<div>{{title}}</div>
+
+<div *ngIf="messages">
+    <div *ngFor="let message of messages" class="item-user">
+        <div class="card mb-3" style="max-width: 540px;" *ngIf="message.emitter">
+            <div class="row g-0">
+                
+                <div class="col-md-4" *ngIf="message.emitter.imagePath">
+                    <img [src]="url+'uploads/'+message.emitter.imagePath" alt="">
+                </div>
+                <div class="col-md-4" *ngIf="!message.emitter.imagePath">
+                    <img [src]="'assets/user-default.png'" alt="">
+                </div>
+
+                <span>
+                    {{message.emitter.name}} &nbsp;|&nbsp; Enviado a <a [routerLink]="['/perfil', message.receiver._id]">{{message.receiver.name}}</a>
+                </span>
+                <p></p>
+                <div class="col-12">
+                    {{message.text}}
+                </div>
+
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" *ngIf="page > 1">
+                <a class="page-link" [routerLink]="['/messages/recibidos']" [queryParams]="{page: prevPage, limit: 4}">Anterior</a>
+            </li>
+    
+        <li class="page-item" *ngIf="page != pagesTotal">
+            <a class="page-link" [routerLink]="['/messages/recibidos']" [queryParams]="{page: nextPage, limit: 4}">Siguiente</a>
+        </li>
+        </ul>
+    </nav>
+
+</div>

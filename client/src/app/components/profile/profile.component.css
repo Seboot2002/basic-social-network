@@ -1,0 +1,21 @@
+.data-profile img{
+    border-radius: 100%;
+}
+
+img{
+    max-width: 50%;
+}
+
+.stats{
+    padding-top: 10%;
+    padding-left: 10%;
+}
+
+.stats .data{
+    float: left;
+    padding: 1%;
+    margin-left: 3%;
+    padding-right: 3%;
+    font-weight: bold;
+    border-right: 2px solid #ccc;
+}
